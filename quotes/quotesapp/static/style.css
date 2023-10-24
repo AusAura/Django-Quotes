@@ -1,0 +1,20 @@
+.alert-error, .errorlist {
+    color: crimson;
+}
+
+.alert-success {
+    color: green;
+}
+
+.quote {
+    /* border: 3px solid blueviolet; */
+    border-radius: 43px;
+    box-shadow: 12px 2px lemonchiffon;
+    padding: 25px;
+    margin-bottom: 15px;
+}
+
+.goodreads {
+    display: flex; 
+    justify-content: flex-end;
+}

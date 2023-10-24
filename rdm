@@ -1,0 +1,9 @@
+# docker run --name noteapp-postgres -p 5432:5432 -e POSTGRES_PASSWORD=567234 -d postgres
+# cd quotes -> python manage.py runserver
+# admin admin
+# Char S,Z4X'Ufh4gvwS8
+
+# python manage.py makemigrations
+# python manage.py migrate
+
+# 127.0.0.1:8000/scrap/quotes.toscrape.com+quotes.toscrape.com_login+admin+admin

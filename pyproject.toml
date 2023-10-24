@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "django-quotes"
+version = "0.1.0"
+description = ""
+authors = ["AusAura <91804331+AusAura@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.2.6"
+psycopg2 = "^2.9.9"
+pymongo = "^4.5.0"
+aiohttp = "^3.8.6"
+bs4 = "^0.0.1"
+lxml = "^4.9.3"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

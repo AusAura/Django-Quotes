@@ -1,0 +1,30 @@
+
+{% extends "quotesapp/base.html" %}
+
+{% block content %}
+
+<h1> Filtering by: {{ tag_name }}</h1>
+
+<ul>
+{% for quote in quotes %}
+    <li style="margin-top: 70px; padding-left: 30px;">
+        <div class="quote">{{ quote.quote }}</div>
+        <div style="font-size: 12px;">
+            ( 
+            {% for tag in quote.tags.all %}
+                <a href="{% url 'quotesapp:find_tag' tag.name %}" class="outline"> {{ tag.name }} </a>
+            {% endfor %}
+            )
+        </div>
+        <div style="float: right; padding-bottom: 35px; margin-top: -20px;">
+            <a href="{% url 'authorsapp:author_detail' quote.author.id %}" class="outline"> {{ quote.author.fullname }} </a>
+            <div><small class="goodreads" style="font-size: 10px"><a href="{{ quote.author.goodreads_url }}" class="outline"> About {{ quote.author.fullname }} at (GoodReads) </a></small>  </div>
+        </div>
+        
+    </li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}
+

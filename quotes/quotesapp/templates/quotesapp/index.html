@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Organizer</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
+    <link rel="stylesheet" href="static/style.css"/>
+</head>
+<body>
+<main class="container" style="display: flexbox;">
+    <div>
+        <h1>Quotes to Scrape</h1>
+        <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
+            {% if user.is_authenticated %}
+            <ul style="margin-bottom: 20px; padding-left: 30px">
+                <li><a href="{% url 'quotesapp:quote' %}" role="button">Add Quote</a></li>
+                <li><a href="{% url 'authorsapp:author' %}" role="button">Add Author</a></li>
+                <li><a href="{% url 'quotesapp:tag' %}" role="button">Add Tag</a></li>
+            </ul>
+            <ul style="margin-bottom: 20px; padding-left: 30px">
+                <li>Welcome <b>{{ user.username }}!</b></li>
+                <li><a href="{% url 'users:logout' %}" role="button">Logout</a></li>
+            </ul>
+            {% else %}
+            <ul style="margin-bottom: 20px; padding-left: 30px">
+                <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
+                <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
+            </ul>
+            {% endif %}
+        </nav>
+    
+    
+        <ul>
+        {% for quote in page_obj %}
+            <li style="margin-top: 70px; padding-left: 30px;">
+                <div class="quote">{{ quote.quote }}</div>
+                <div style="font-size: 12px;">
+                    ( 
+                    {% for tag in quote.tags.all %}
+                        <a href="{% url 'quotesapp:find_tag' tag.name %}" class="outline"> {{ tag.name }} </a>
+                    {% endfor %}
+                    )
+                </div>
+                <div style="float: right; padding-bottom: 35px; margin-top: -20px;">
+                    <a href="{% url 'authorsapp:author_detail' quote.author.id %}" class="outline"> {{ quote.author.fullname }} </a>
+                    <div><small class="goodreads" style="font-size: 10px"><a href="{{ quote.author.goodreads_url }}" class="outline"> About {{ quote.author.fullname }} at (GoodReads) </a></small>  </div>
+                </div>
+                
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+            {% endif %}
+    
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">следующая</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <div style=" top: 0; right: 0; text-align: center; padding-right: 35px; padding-top: 255px;">
+        <h2> Top 10 Tags </h2>
+        {% for tag in top_tags %}
+            <div> <a href="{% url 'quotesapp:find_tag' tag.name %}" class="outline" 
+                style="font-size: {{ tag.num_quotes }}px; margin: 5px;"> {{ tag.name }}</a></div>
+        {% endfor %}
+    </div>
+
+</main>
+</body>
+</html>
